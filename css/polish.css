@@ -1,0 +1,190 @@
+/* 
+   ==========================================================================
+   OPTIMIZATION & PERFORMANCE - ULTRA FLUID EDITION
+   ==========================================================================
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+
+/* 1. Performance-First Global Reset
+   ----------------------------------------------------------------------- */
+:root {
+    --reveal-distance: 20px;
+    --reveal-duration: 0.6s;
+}
+
+html,
+body {
+    /* Rule: 100% Native Global Scroll */
+    scroll-behavior: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    /* Forces momentum scroll on iOS */
+    touch-action: pan-y pinch-zoom;
+    /* Optimizes for Y scrolling */
+    height: auto;
+    position: relative;
+}
+
+* {
+    /* Rule: No scroll-snapping */
+    scroll-snap-type: none !important;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeSpeed;
+    /* Faster rendering */
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+    margin: 0;
+}
+
+/* 2. GPU Acceleration & Optimization
+   ----------------------------------------------------------------------- */
+.elementor,
+.elementor-section,
+.e-con {
+    /* Rule: Hardware Acceleration without over-burdening GPU */
+    transform: translateZ(0);
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* 3. Native-Feel Visual Polish
+   ----------------------------------------------------------------------- */
+p {
+    line-height: 1.7 !important;
+    margin-bottom: 1.5em !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #111111;
+    letter-spacing: -0.04em !important;
+    line-height: 1.15 !important;
+    font-weight: 700 !important;
+}
+
+/* 4. Lightweight Reveal System (IntersectionObserver Based)
+   ----------------------------------------------------------------------- */
+.premium-reveal {
+    opacity: 0;
+    transform: translateY(var(--reveal-distance));
+    transition: opacity var(--reveal-duration) cubic-bezier(0.21, 0.6, 0.35, 1),
+        transform var(--reveal-duration) cubic-bezier(0.21, 0.6, 0.35, 1);
+    pointer-events: none;
+    /* Avoid blocking clicks while animating */
+}
+
+.premium-reveal-active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Fix for elements that shouldn't animate */
+.elementor-absolute,
+.elementor-fixed {
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+}
+
+/* 5. Mobile Optimization (Native First)
+   ----------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    :root {
+        --reveal-distance: 10px;
+        /* Shorter for better mobile feel */
+    }
+
+    p {
+        font-size: 17px !important;
+        line-height: 1.65 !important;
+    }
+
+    .elementor-section {
+        padding-top: 40px !important;
+        padding-bottom: 40px !important;
+    }
+}
+
+/* 6. Clean UI Elements
+   ----------------------------------------------------------------------- */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.75) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 20px !important;
+}
+
+.elementor-button {
+    border-radius: 50px !important;
+    font-weight: 600 !important;
+    padding: 16px 36px !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+.elementor-button:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+    filter: brightness(105%);
+}
+
+/* Custom Minimal Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* 7. Premium Green Button (Specific Request)
+   ----------------------------------------------------------------------- */
+.btn-premium-green {
+    background: linear-gradient(180deg, #32b545 0%, #1a8a2d 100%) !important;
+    border: 3px solid #000000 !important;
+    border-radius: 100px !important;
+    color: #ffffff !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    font-weight: 800 !important;
+    font-size: 1.2rem !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 20px -5px rgba(26, 138, 45, 0.4) !important;
+    padding: 22px 50px !important;
+    max-width: 90%;
+    margin: 10px auto !important;
+    text-transform: uppercase !important;
+}
+
+.btn-premium-green:hover {
+    transform: translateY(-3px) scale(1.02) !important;
+    box-shadow: 0 15px 30px -5px rgba(26, 138, 45, 0.5) !important;
+    filter: brightness(1.1);
+}
+
+.btn-premium-green .elementor-button-text {
+    color: #ffffff !important;
+}
+
+/* Ensure spacers containing buttons don't restrict height */
+.elementor-widget-spacer:has(.btn-premium-green) .elementor-spacer {
+    height: auto !important;
+}
